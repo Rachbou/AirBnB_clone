@@ -11,7 +11,7 @@ from uuid import uuid4
 class BaseModel:
     """Represent a BaseModel."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         """Initialize a new BaseModel"""
 
         self.id = str(uuid4())
