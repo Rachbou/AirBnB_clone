@@ -21,6 +21,13 @@ class TestBaseModel(unittest.TestCase):
         bm2 = BaseModel()
         self.assertNotEqual(bm1.id, bm2.id)
 
+    def test_copy_object(self):
+        """Copy an object with the kwargs init from BaseModel"""
+
+        bm1 = BaseModel()
+        bm2 = BaseModel(**bm1.to_dict())
+        self.assertEqual(bm1.id, bm2.id)
+
     def test_id_type(self):
         """Test the id type from BaseModel"""
 
