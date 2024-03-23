@@ -6,7 +6,7 @@
 
 from datetime import datetime
 from uuid import uuid4
-from models import storage
+import models
 
 
 class BaseModel:
@@ -19,7 +19,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -42,7 +42,7 @@ class BaseModel:
         """Update the date field"""
 
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """Return a dictionary representation of the instance"""
