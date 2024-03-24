@@ -15,4 +15,4 @@ class State(BaseModel):
     def __init__(self, *args, **kwargs):
         """Initialize a new State"""
 
-        super().__init__(*args, **kwargs)
+        pass
