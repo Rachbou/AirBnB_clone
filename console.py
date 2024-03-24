@@ -20,6 +20,35 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     __classes = ["BaseModel", "User", "State",
                  "City", "Amenity", "Place", "Review"]
+    __commands = ["all", "count", "show", "destroy", "update"]
+
+    def precmd(self, line):
+        """ Get the line before interpretate"""
+        if len(line):
+            line_command = line.split()
+            if len(line_command):
+                line_command = line_command[0].split("(")
+                class_command = line_command[0].split(".")
+                if len(line_command) == 2:
+                    args = line_command[1].split("\"")
+                else:
+                    return line
+                if len(class_command) == 2\
+                    and class_command[0] in self.__classes\
+                    and class_command[1] in self.__commands:
+                    command = ' '.join(class_command[-1::-1])
+                    if line_command[1] == ")":
+                        return command
+                    elif len(args) == 3 and args[2] == ")":
+                        return command + " " + args[1]
+                    else:
+                        return line
+                else:
+                    return line
+            else:
+                return line
+        else:
+            return line
 
     def emptyline(self):
         """Empty line method"""
@@ -147,6 +176,29 @@ class HBNBCommand(cmd.Cmd):
 
         msg = ' '.join(["Prints all string representation of",
                         "all instances based or not on the class name\n"])
+        print(msg)
+
+    
+    def do_count(self, arg):
+        """Count how much instances have a given class"""
+        if len(arg) > 0:
+            list_arg = arg.split()
+            all_instances = storage.all()
+            if list_arg[0] in self.__classes:
+                num = 0
+                for key, value in all_instances.items():
+                    if list_arg[0] in key:
+                        num = num + 1
+                print(num)
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+
+    def help_count(self):
+        """Help command for count"""
+
+        msg = "Count how much instances have a given class\n"
         print(msg)
 
     def do_update(self, arg):
