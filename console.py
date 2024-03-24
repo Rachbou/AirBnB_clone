@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """EOF command to exit the program"""
-        
+
         return True
 
     def help_EOF(self):
@@ -85,8 +85,8 @@ class HBNBCommand(cmd.Cmd):
         """Help command for show"""
 
         msg = ' '.join(["Prints the string representation",
-                         "of an instance based on the",
-                         "class name and id\n"])
+                        "of an instance based on the",
+                        "class name and id\n"])
         print(msg)
 
     def do_destroy(self, arg):
