@@ -38,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
                     return line
                 if len(class_command) == 2\
                     and class_command[0] in self.__classes\
-                    and class_command[1] in self.__commands:
+                        and class_command[1] in self.__commands:
                     command = ' '.join(class_command[-1::-1])
                     if line_command[1] == ")":
                         return command
@@ -46,14 +46,13 @@ class HBNBCommand(cmd.Cmd):
                         return ' '.join([command, args[1]])
                     elif len(update_command) == 5\
                         and update_command[4] != ")"\
-                        and update_command[4][-1] == ")":
+                            and update_command[4][-1] == ")":
                         value = update_command[4].strip(')').split()[1]
                         final = ' '.join([command, args[1],
                                           update_command[3],
                                           value])
                         return final
-                    elif len(update_command) == 7\
-                        and update_command[6] == ")":
+                    elif len(update_command) == 7 and update_command[6] == ")":
                         final = ' '.join([command, args[1],
                                           update_command[3],
                                           update_command[5]])
@@ -65,12 +64,11 @@ class HBNBCommand(cmd.Cmd):
                                                                       "\"")))
                             command = ' '.join([class_command[0], args[1]])
                             for key, value in dict_up.items():
-                                final = command + " \"" + key + "\"" +\
-                                    " \"" + str(value) + "\""
+                                final = ' '.join([command, key, str(value)])
                                 self.do_update(final)
                             command = ' '.join([class_command[1], final])
                             return command
-                        except:
+                        except Exception:
                             return line
                     else:
                         return line
