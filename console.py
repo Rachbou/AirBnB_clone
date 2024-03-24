@@ -27,6 +27,7 @@ class HBNBCommand(cmd.Cmd):
         if len(line):
             line_command = line.split()
             if len(line_command):
+                update_command = line.split("\"")
                 line_command = line_command[0].split("(")
                 class_command = line_command[0].split(".")
                 if len(line_command) == 2:
@@ -40,7 +41,21 @@ class HBNBCommand(cmd.Cmd):
                     if line_command[1] == ")":
                         return command
                     elif len(args) == 3 and args[2] == ")":
-                        return command + " " + args[1]
+                        return ' '.join([command, args[1]])
+                    elif len(update_command) == 5\
+                        and update_command[4] != ")"\
+                        and update_command[4][-1] == ")":
+                        value = update_command[4].strip(')').split()[1]
+                        final = ' '.join([command, args[1],
+                                          update_command[3],
+                                          value])
+                        return final
+                    elif len(update_command) == 7\
+                        and update_command[6] == ")":
+                        final = ' '.join([command, args[1],
+                                          update_command[3],
+                                          update_command[5]])
+                        return final
                     else:
                         return line
                 else:
@@ -161,8 +176,8 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         if len(arg) > 0:
             list_arg = arg.split()
-            clsObjs = [str(v) for k, v in objects.items()
-                       if list_arg[0] == k.split('.')[0]]
+            clsObjs = [str(value) for key, value in objects.items()
+                       if list_arg[0] == key.split('.')[0]]
             if len(clsObjs) > 0:
                 print(clsObjs)
             else:
