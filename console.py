@@ -12,6 +12,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models import storage
+import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -27,6 +28,7 @@ class HBNBCommand(cmd.Cmd):
         if len(line):
             line_command = line.split()
             if len(line_command):
+                update_dict = line.split("{")
                 update_command = line.split("\"")
                 line_command = line_command[0].split("(")
                 class_command = line_command[0].split(".")
@@ -56,6 +58,20 @@ class HBNBCommand(cmd.Cmd):
                                           update_command[3],
                                           update_command[5]])
                         return final
+                    elif len(update_dict):
+                        try:
+                            dict_up = json.loads(
+                                str("{" + update_dict[1][:-1].replace("'",
+                                                                      "\"")))
+                            command = ' '.join([class_command[0], args[1]])
+                            for key, value in dict_up.items():
+                                final = command + " \"" + key + "\"" +\
+                                    " \"" + str(value) + "\""
+                                self.do_update(final)
+                            command = ' '.join([class_command[1], final])
+                            return command
+                        except:
+                            return line
                     else:
                         return line
                 else:
@@ -193,7 +209,6 @@ class HBNBCommand(cmd.Cmd):
                         "all instances based or not on the class name\n"])
         print(msg)
 
-    
     def do_count(self, arg):
         """Count how much instances have a given class"""
         if len(arg) > 0:
