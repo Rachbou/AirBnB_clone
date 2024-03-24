@@ -12,7 +12,7 @@ import os
 
 
 class TestUser(unittest.TestCase):
-    """Represent a User."""
+    """Represent a User test."""
 
     def test_docstring(self):
         """Test docstring for the module and the class"""
@@ -41,3 +41,7 @@ class TestUser(unittest.TestCase):
             str(type(user)),
             "<class 'models.user.User'>")
         self.assertIsInstance(user, User)
+
+
+if __name__ == "__main__":
+    unittest.main()
