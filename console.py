@@ -180,8 +180,7 @@ class HBNBCommand(cmd.Cmd):
                 elif clsId in objects:
                     if list_arg[2]:
                         obj = objects[clsId]
-                        value = HBNBCommand.Evaluate(list_arg[3])
-                        setattr(obj, list_arg[2], value)
+                        setattr(obj, list_arg[2], list_arg[3])
                         obj.save()
                     else:
                         print("** value missing **")
@@ -199,22 +198,6 @@ class HBNBCommand(cmd.Cmd):
                         "\nUsage: update <class name> <id> <attribute name>",
                         "\"<attribute value>\"\n"])
         print(msg)
-
-    @staticmethod
-    def Evaluate(str):
-        try:
-            result = int(str)
-            return (result)
-        except ValueError:
-            pass
-        
-        try:
-            result = float(str)
-            return (result)
-        except ValueError:
-            return False
-        
-        return (str)
 
 
 if __name__ == '__main__':
